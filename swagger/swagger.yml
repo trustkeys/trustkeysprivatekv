@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Private Key-value store for trustkeys.network
+  title: Public Key-value store for trustkeys.network
   description: An awesome key-value store for mobile application that verify ECDSA
     digital signature with secp256k1
   version: 1.0.0
@@ -12,12 +12,12 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 basePath: /v1
 paths:
-  /privatekv/GetSafeSliceFrom/{appID}/{pubKey}:
+  /privatekv/GetSliceFrom/{appID}/{pubKey}:
     get:
       tags:
       - privatekv
       description: find key-value by key with check sig
-      operationId:  PrivateKVController.GetSafeSliceFrom
+      operationId: PrivateKVController.GetSliceFrom
       parameters:
       - in: query
         name: pubKey
@@ -55,78 +55,12 @@ paths:
               $ref: '#/definitions/models.KVObject'
         "403":
           description: ': empty object'
-  /privatekv/GetSliceFrom/{appID}/{pubKey}:
-    get:
-      tags:
-      - privatekv
-      description: find key-value by key
-      operationId:  PrivateKVController.GetSliceFrom
-      parameters:
-      - in: query
-        name: pubKey
-        description: Public Key of a user
-        required: true
-        type: string
-      - in: query
-        name: appID
-        description: appID
-        required: true
-        type: string
-      - in: query
-        name: fromKey
-        description: the key of kv you want to get
-        required: true
-        type: string
-      - in: query
-        name: maxNum
-        description: Maximum number of items to get
-        required: true
-        type: integer
-        format: int64
-      responses:
-        "200":
-          description: ""
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/models.KVObject'
-        "403":
-          description: ': empty object'
   /privatekv/get:
     get:
       tags:
       - privatekv
-      description: find key-value by key
-      operationId:  PrivateKVController.Get
-      parameters:
-      - in: query
-        name: pubKey
-        description: Public Key of a user
-        required: true
-        type: string
-      - in: query
-        name: appID
-        description: appID
-        required: true
-        type: string
-      - in: query
-        name: key
-        description: the key of kv you want to get
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.KVObject'
-        "403":
-          description: ': empty object'
-  /privatekv/getsafe:
-    get:
-      tags:
-      - privatekv
       description: find key-value by key with check sig
-      operationId:  PrivateKVController.GetSafe
+      operationId: PrivateKVController.GetItem
       parameters:
       - in: query
         name: pubKey
@@ -160,7 +94,7 @@ paths:
       tags:
       - privatekv
       description: Put key-value to cloud
-      operationId:  PrivateKVController.PutItem
+      operationId: PrivateKVController.PutItem
       parameters:
       - in: path
         name: pubKey
@@ -198,7 +132,7 @@ paths:
       tags:
       - privatekv
       description: Put key-value to cloud extra timestamp
-      operationId:  PrivateKVController.PutSafeItem
+      operationId: PrivateKVController.PutSafeItem
       parameters:
       - in: path
         name: pubKey
