@@ -39,7 +39,15 @@ import (
 
 
 func InitWithBSHostPort(bsHost, bsPort string) {
-	controllers.SetPrivateModel(models.NewtrustkeysprivatekvAcceptAllModel(bsHost, bsPort) , true)
+	var enable_getsig bool
+	if appconfig.ENABLE_GETSIG == 1 {
+		enable_getsig = true
+	} else {
+		enable_getsig = false
+	}
+	controller.SetPrivateModel(models.NewtrustkeysprivatekvAcceptAllModel(bsHost, bsPort), enable_getsig)
+
+	// controllers.SetPrivateModel(models.NewtrustkeysprivatekvAcceptAllModel(bsHost, bsPort) , true)
 }
 
 
