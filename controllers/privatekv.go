@@ -122,7 +122,7 @@ func (o *PrivateKVController) PutSafeItem(pubKey, appID string) {
 }
 
 
-// @Title GetSafe
+// @Title GetItem
 // @Description find key-value by key with check sig
 // @Param	pubKey		query 	string	true		"Public Key of a user"
 // @Param	appID		query 	string	true		"appID"
@@ -130,8 +130,8 @@ func (o *PrivateKVController) PutSafeItem(pubKey, appID string) {
 // @Param	sig		query 	string	true		"signature of a message = "TrustKeys:" + pubKey + appID + Key"
 // @Success 200 {object} models.KVObject
 // @Failure 403 : empty object
-// @router /getsafe [get]
-func (o *PrivateKVController) GetSafe() {
+// @router /get [get]
+func (o *PrivateKVController) GetItem() {
 	pubKey := o.GetString("pubKey")
 	appID := o.GetString("appID")
 	key := o.GetString("key") //o.Ctx.Input.Param(":key")
@@ -168,7 +168,7 @@ func (o *PrivateKVController) GetSafe() {
 }
 
 
-// @Title GetSafeSliceFrom
+// @Title GetSliceFrom
 // @Description find key-value by key with check sig
 // @Param	pubKey		query 	string	true		"Public Key of a user"
 // @Param	appID		query 	string	true		"appID"
@@ -177,8 +177,8 @@ func (o *PrivateKVController) GetSafe() {
 // @Param	sig		query 	string	true		"signature of a message = "TrustKeys:" + pubKey + appID + fromKey + maxNum"
 // @Success 200 {array} []models.KVObject
 // @Failure 403 : empty object
-// @router /GetSafeSliceFrom/:appID/:pubKey [get]
-func (o *PrivateKVController) GetSafeSliceFrom(pubKey, appID string) {
+// @router /GetSliceFrom/:appID/:pubKey [get]
+func (o *PrivateKVController) GetSliceFrom(pubKey, appID string) {
 	fromKey := o.GetString("fromKey") //o.Ctx.Input.Param(":key")
 	maxNum, _ := o.GetInt32("maxNum")
 	sig := o.GetString("sig")
