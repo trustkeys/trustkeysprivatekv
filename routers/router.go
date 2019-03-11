@@ -16,7 +16,7 @@ func init() {
 	ns := beego.NewNamespace("/v1",
 		beego.NSNamespace("/privatekv",
 			beego.NSInclude(
-				&controllers. PrivateKVController{},
+				&controllers.PrivateKVController{},
 			),
 		),
 	)
