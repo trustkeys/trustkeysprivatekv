@@ -15,12 +15,12 @@ var (
 )
 
 // Operations about Public Key-value store
-type  PrivateKVController struct {
+type PrivateKVController struct {
 	beego.Controller
 }
 
 // Set model for controller
-func  SetPrivateModel(aModel models.TrustkeysPrivatekvModelIf, en_getsig bool) {
+func SetPrivateModel(aModel models.TrustkeysPrivatekvModelIf, en_getsig bool) {
 	enable_getsig = en_getsig
 	tkPrivateModel = aModel
 }
