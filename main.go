@@ -22,7 +22,7 @@ func InitWithBSHostPort(bsHost, bsPort string) {
 	} else {
 		enable_getsig = false
 	}
-	controller.SetPrivateModel(models.NewtrustkeysprivatekvAcceptAllModel(bsHost, bsPort), enable_getsig)
+	controllers.SetPrivateModel(models.NewtrustkeysprivatekvAcceptAllModel(bsHost, bsPort), enable_getsig)
 }
 
 func main() {
