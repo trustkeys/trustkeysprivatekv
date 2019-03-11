@@ -37,7 +37,7 @@ var GetMessage = util.GetMessage
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router /putitem/:appID/:pubKey [post]
-func (o * PrivateKVController) PutItem(pubKey, appID string) {
+func (o *PrivateKVController) PutItem(pubKey, appID string) {
 
 	// pubKey := o.GetString("pubKey")
 	sig := o.GetString("sig")
@@ -84,7 +84,7 @@ func (o * PrivateKVController) PutItem(pubKey, appID string) {
 // @Success 200 {map[string]string} map[string]string
 // @Failure 403 body is empty
 // @router /putsafeitem/:appID/:pubKey [post]
-func (o * PrivateKVController) PutSafeItem(pubKey, appID string) {
+func (o *PrivateKVController) PutSafeItem(pubKey, appID string) {
 
 	// pubKey := o.GetString("pubKey")
 	sig := o.GetString("sig")
@@ -131,7 +131,7 @@ func (o * PrivateKVController) PutSafeItem(pubKey, appID string) {
 // @Success 200 {object} models.KVObject
 // @Failure 403 : empty object
 // @router /getsafe [get]
-func (o * PrivateKVController) GetSafe() {
+func (o *PrivateKVController) GetSafe() {
 	pubKey := o.GetString("pubKey")
 	appID := o.GetString("appID")
 	key := o.GetString("key") //o.Ctx.Input.Param(":key")
@@ -178,7 +178,7 @@ func (o * PrivateKVController) GetSafe() {
 // @Success 200 {array} []models.KVObject
 // @Failure 403 : empty object
 // @router /GetSafeSliceFrom/:appID/:pubKey [get]
-func (o * PrivateKVController) GetSafeSliceFrom(pubKey, appID string) {
+func (o *PrivateKVController) GetSafeSliceFrom(pubKey, appID string) {
 	fromKey := o.GetString("fromKey") //o.Ctx.Input.Param(":key")
 	maxNum, _ := o.GetInt32("maxNum")
 	sig := o.GetString("sig")
