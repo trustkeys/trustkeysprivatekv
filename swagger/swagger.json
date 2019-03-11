@@ -1,0 +1,365 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Private Key-value store for trustkeys.network",
+        "description": "An awesome key-value store for mobile application that verify ECDSA digital signature with secp256k1",
+        "version": "1.0.0",
+        "termsOfService": "https://kvpublic.trustkeys.network/swagger/",
+        "contact": {
+            "email": "thanhnt@123xe.vn"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/privatekv/GetSafeSliceFrom/{appID}/{pubKey}": {
+            "get": {
+                "tags": [
+                    "privatekv"
+                ],
+                "description": "find key-value by key with check sig",
+                "operationId": " PrivateKVController.GetSafeSliceFrom",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "pubKey",
+                        "description": "Public Key of a user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "appID",
+                        "description": "appID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fromKey",
+                        "description": "the key of kv you want to get",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "maxNum",
+                        "description": "Maximum number of items to get",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sig",
+                        "description": "signature of a message = TrustKeys: + pubKey + appID + fromKey + maxNum",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.KVObject"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": ": empty object"
+                    }
+                }
+            }
+        },
+        "/privatekv/GetSliceFrom/{appID}/{pubKey}": {
+            "get": {
+                "tags": [
+                    "privatekv"
+                ],
+                "description": "find key-value by key",
+                "operationId": " PrivateKVController.GetSliceFrom",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "pubKey",
+                        "description": "Public Key of a user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "appID",
+                        "description": "appID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fromKey",
+                        "description": "the key of kv you want to get",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "maxNum",
+                        "description": "Maximum number of items to get",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.KVObject"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": ": empty object"
+                    }
+                }
+            }
+        },
+        "/privatekv/get": {
+            "get": {
+                "tags": [
+                    "privatekv"
+                ],
+                "description": "find key-value by key",
+                "operationId": " PrivateKVController.Get",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "pubKey",
+                        "description": "Public Key of a user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "appID",
+                        "description": "appID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "key",
+                        "description": "the key of kv you want to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.KVObject"
+                        }
+                    },
+                    "403": {
+                        "description": ": empty object"
+                    }
+                }
+            }
+        },
+        "/privatekv/getsafe": {
+            "get": {
+                "tags": [
+                    "privatekv"
+                ],
+                "description": "find key-value by key with check sig",
+                "operationId": " PrivateKVController.GetSafe",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "pubKey",
+                        "description": "Public Key of a user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "appID",
+                        "description": "appID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "key",
+                        "description": "the key of kv you want to get",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sig",
+                        "description": "signature of a message = TrustKeys: + pubKey + appID + Key",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.KVObject"
+                        }
+                    },
+                    "403": {
+                        "description": ": empty object"
+                    }
+                }
+            }
+        },
+        "/privatekv/putitem/{appID}/{pubKey}": {
+            "post": {
+                "tags": [
+                    "privatekv"
+                ],
+                "description": "Put key-value to cloud",
+                "operationId": " PrivateKVController.PutItem",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "pubKey",
+                        "description": "Public key in hex",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "appID",
+                        "description": "App ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "key",
+                        "description": "The Key",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "val",
+                        "description": "The Value",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sig",
+                        "description": "signature of a message = TrustKeys: + pubKey + appID + Key + Value",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{map[string]string} map[string]string"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/privatekv/putsafeitem/{appID}/{pubKey}": {
+            "post": {
+                "tags": [
+                    "privatekv"
+                ],
+                "description": "Put key-value to cloud extra timestamp",
+                "operationId": " PrivateKVController.PutSafeItem",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "pubKey",
+                        "description": "Public key in hex",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "appID",
+                        "description": "App ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "key",
+                        "description": "The Key",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "val",
+                        "description": "The Value",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "timeStamp",
+                        "description": "Timestamp",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sig",
+                        "description": "signature of a message = TrustKeys: + pubKey + appID + Key + Value + timestamp",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{map[string]string} map[string]string"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.KVObject": {
+            "title": "KVObject",
+            "type": "object",
+            "properties": {
+                "Key": {
+                    "type": "string"
+                },
+                "TransactionID": {
+                    "type": "string"
+                },
+                "Value": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "privatekv",
+            "description": "Operations about Public Key-value store\n"
+        }
+    ]
+}
