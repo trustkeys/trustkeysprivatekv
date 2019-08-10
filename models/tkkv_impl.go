@@ -8,6 +8,7 @@ import (
 	bs "github.com/OpenStars/backendclients/go/bigset/thrift/gen-go/openstars/core/bigset/generic"
 	"github.com/OpenStars/backendclients/go/bigset/transports"
 	thriftpool "github.com/OpenStars/thriftpool"
+	"bytes"
 )
 
 func NewtrustkeysprivatekvAcceptAllModel(host, port string) TrustkeysPrivatekvModelIf {
@@ -43,6 +44,18 @@ func acceptAll(string) bool {
 
 func makeKey(pubKey, key string) []byte {
 	return []byte(pubKey + ":" + key)
+}
+
+func isPrefixOfPubKey(pubKey, bsKey []byte) bool {
+	if len(bsKey) >= len (bsKey)  {
+		return false
+	}
+
+	if bytes.Compare(pubKey, bsKey[:len(pubKey) ] ) == 0 {
+		return true;
+	}
+	return false
+
 }
 
 func keyFromLongKey(pubKey string, longKey []byte) string {
@@ -160,7 +173,11 @@ func (o *SimpleTKKVModel) GetSlice(appID, pubKey, fromKey string, maxNum int32) 
 
 		if Err == nil {
 			if aRes.IsSetItems() {
+				pubKeyBytes:=([]byte)(pubKey)
 				for _, item := range aRes.GetItems().Items {
+					if !isPrefixOfPubKey( pubKeyBytes, item.Key ) {
+						break;
+					}
 					v := &internalValue{}
 					v.fromBytes(item.Value)
 					// kv = append(kv, KVObject{Key: string(item.Key), Value: v.Value })
