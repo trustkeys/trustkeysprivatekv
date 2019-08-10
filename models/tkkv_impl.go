@@ -47,7 +47,7 @@ func makeKey(pubKey, key string) []byte {
 }
 
 func isPrefixOfPubKey(pubKey, bsKey []byte) bool {
-	if len(bsKey) >= len (bsKey)  {
+	if len(bsKey) <= len (pubKey)  {
 		return false
 	}
 
@@ -57,6 +57,7 @@ func isPrefixOfPubKey(pubKey, bsKey []byte) bool {
 	return false
 
 }
+
 
 func keyFromLongKey(pubKey string, longKey []byte) string {
 	if len(longKey) < len(pubKey)+1 {
@@ -165,7 +166,7 @@ func (o *SimpleTKKVModel) GetSlice(appID, pubKey, fromKey string, maxNum int32) 
 	bskey := makeKey(pubKey, fromKey)
 	// pub into bigset : appID , bsKey , value
 	aClient := o.getDataBSClient()
-	fmt.Println("GetSlice  appId: ",appID,  " pubKey: " , pubKey , " fromKey: ", fromKey )
+	// fmt.Println("GetSlice  appId: ",appID,  " pubKey: " , pubKey , " fromKey: ", fromKey )
 	if aClient != nil {
 		defer aClient.BackToPool()
 		//aRes, Err := aClient.Client.(*bs.TStringBigSetKVServiceClient).BsGetItem(context.Background(), bs.TStringKey(appID), bs.TItemKey(bskey))
@@ -177,7 +178,7 @@ func (o *SimpleTKKVModel) GetSlice(appID, pubKey, fromKey string, maxNum int32) 
 				pubKeyBytes:=([]byte)(pubKey)
 
 				for _, item := range aRes.GetItems().Items {
-					fmt.Println("GetSlice Got item " , (string)(item.Key))
+					// fmt.Println("GetSlice Got item " , (string)(item.Key))
 					if !isPrefixOfPubKey( pubKeyBytes, item.Key ) {
 						break;
 					}
